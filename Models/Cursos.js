@@ -1,11 +1,11 @@
-const cursos =[
+const Cursos =[
     {
         id,
         nome,
         descricao,
         dataDeInicio: new Date(),
-        DataDeFim
+        dataDeFim
     }
 ]
 
-export {cursos}
+export default Cursos

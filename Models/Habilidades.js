@@ -1,4 +1,4 @@
-const habilidades =[
+const Habilidades =[
     {
         id,
         nome,
@@ -8,4 +8,4 @@ const habilidades =[
     }
 ]
 
-export {habilidades}
+export default Habilidades

@@ -1,4 +1,4 @@
-const usuario =[
+const Usuario = [
     {
         id,
         nome,
@@ -6,6 +6,6 @@ const usuario =[
         endereco,
         ensino
     }
-]
+];
 
-export {usuario}
+export default Usuario;

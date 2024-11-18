@@ -1,4 +1,4 @@
-const trabalhos =[
+const Trabalhos =[
     {
         id,
         nome,
@@ -9,4 +9,4 @@ const trabalhos =[
     }
 ]
 
-export {trabalhos}
+export default Trabalhos
