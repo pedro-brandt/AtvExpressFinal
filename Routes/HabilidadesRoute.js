@@ -48,4 +48,44 @@ server.post('/', async (req, res) => {
         res.status(500).send('Erro ao adicionar habilidade');
     }
 })
+
+
+
+server.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { nome, descricao, dataDeInicio, dataDeFim } = req.body;
+    try {
+        const result = await pool.query(
+            `UPDATE Cursos
+            SET nome = $1, descricao = $2, dataDeInicio = $3, dataDeFim = $4
+            WHERE id = $5 RETURNING *`,
+            [nome, descricao, dataDeInicio, dataDeFim, id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).send('Habilidade não encontrada');
+        }
+
+        res.status(200).json({ message: 'Habilidade atualizada com sucesso', habilidade: result.rows[0] });
+    } catch (error) {
+        console.error('Erro ao atualizar Habilidade:', error);
+        res.status(500).send('Erro ao atualizar Habilidade');
+    }
+});
+
+server.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('DELETE FROM CHabilidade WHERE id = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).send('Habilidade não encontrada');
+        }
+        res.status(200).json({ message: 'Habilidade excluída com sucesso', habilidade: result.rows[0] });
+    } catch (error) {
+        console.error('Erro ao excluir Habilidade:', error);
+        res.status(500).send('Erro ao excluir Habilidade');
+    }
+});
+
+
 export default server;
