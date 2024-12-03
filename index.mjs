@@ -9,6 +9,13 @@ const app = express();
 
 app.use(express.json());
 
+const loggingMiddleware = (request, response, next) => {
+    console.log(`${request.method} - ${request.url}`);
+    next();
+};
+
+app.use(loggingMiddleware)
+
 const port = process.env.PORT || 3000;
 
 //app.listen(3000);
