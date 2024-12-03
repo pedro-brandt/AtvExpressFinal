@@ -14,7 +14,7 @@ const loggingMiddleware = (request, response, next) => {
     next();
 };
 
-app.use(loggingMiddleware)
+
 
 const port = process.env.PORT || 3000;
 
@@ -30,9 +30,24 @@ const mockUsuario = [
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http: localhost:${PORT}`)})
 
-app.get("/", (request, response) => {
-    response.status(201).send({msg: "Olá, beleza? "})
-    })
+app.get(
+    "/", 
+    (request, response, next) => {
+        console.log("Base URL 1");
+        next();
+    }, 
+    (request, response, next) => {
+        console.log("Base URL 2");
+        next();
+    }, 
+    (request, response, next) => {
+        console.log("Base URL 3");
+        next();
+    }, 
+    (request, response) => {
+    response.status(201).send({msg: "Olá, beleza? "});
+    }
+);
 
 app.get("/api/usuario", (request, response) => {
     console.log(request.query);
