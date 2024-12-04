@@ -1,6 +1,13 @@
-"/api/usuario/:id", resolveIndexByUsuarioId, (request, response) => {
-    const { findUsuarioIndex } = request;
-    const findUsuario = mockUsuario[findUsuarioIndex]
-   if (!findUsuario) return response.sendDtatus(404);
-   return response.send(findUsuario);
+import { mockUsuario } from "./constantes.mjs";
+
+export const resolveIndexByUsuarioId = (request, response, next) => {
+    const {
+        params: {id},
+    } = request;
+    const parsedId = parseInt(Id);
+    if (isNaN(parsedId)) return response.sendStatus(400);
+    const findUsuarioIndex = mockUsuario.findIndex((usuario) => usuario.id === parsedId);
+    if (findUsuarioIndex === -1) return response.sendStatus(404);
+    request.findUsuarioIndex = findUsuarioIndex;
+    next();
 }
