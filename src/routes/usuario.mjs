@@ -60,7 +60,7 @@ router.patch("/api/usuario:id", resolveIndexByUsuarioId, (request, response) => 
     const {
         body,
     } = request;
-    mockUsuario[findUsuarioIndex] = { ...mockUsuario[findUsuarioIndex] ...body};
+    mockUsuario[findUsuarioIndex] = { ...mockUsuario[findUsuarioIndex], ...body};
     return response.sendStatus(200);
 })  
 
