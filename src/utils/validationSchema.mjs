@@ -8,7 +8,7 @@ export const createUserValidationSchema = {
                 max: 30,
             },
             errorMessage:
-                "o nome dete ter entre 4 a 30",
+                "o nome deve ter entre 4 a 30",
         },
         notEmpty: {
             errorMessage: "nome nao deve estar vazio",
