@@ -1,5 +1,5 @@
 import express from "express";
-import { query } from "express-validator";
+import { query, validationResult, body, matchedData } from "express-validator";
 import usuarioRoutes from './Routes/UsuarioRoute.js'
 import cursosRoutes from './Routes/CursosRoute.js'
 import habilidadesRoutes from './Routes/HabilidadesRoute.js'
@@ -48,10 +48,15 @@ app.get("/", (request, response) => {
 );
 
 app.get(
-    "/api/usuario"
-    , query("filter").isString().notEmpty(),
+    "/api/usuario",
+    query("filter")
+    .isString()
+    .notEmpty()
+    .isLength({ min: 2, max:3 })
+    .withMessage('tem de estar entre 2 a 3'),
      (request, response) => {
-    console.log(request[]);
+        const result = validationResult(request)
+        console.log(result);
     const { 
         query: {filter, value}, 
     } = request;
@@ -63,9 +68,27 @@ app.get(
     });
 
 
-app.post("/api/usuario", (request, response) => {
-    const {body} = request;
-    const newUsuario = { id: mockUsuario[mockUsuario.length - 1].id + 1, ...body};
+app.post(
+    "/api/usuario",
+    [
+     body('nome')
+     .notEmpty()
+     .withMessage("nome nao deve estar vazio")
+     .isLength({min: 4, max: 30})
+     .withMessage("o nome dete ter entre 4 a 30")
+     .isString()
+     .withMessage("nome tem de ser String"),
+     body("apelido").notEmpty()
+    ],
+      (request, response) => {
+        const result = validationResult(result);
+        console.log(result);
+        
+        if (!result.isEmpty())
+            return response.status(400).send({errors: result.array()})
+
+        const data = matchedData(request);
+    const newUsuario = { id: mockUsuario[mockUsuario.length - 1].id + 1, ...data};
     mockUsuario.push(newUsuario);
     return response.status(201).send(newUsuario);
 });
