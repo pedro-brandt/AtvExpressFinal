@@ -1,4 +1,5 @@
-import express, { request, response } from 'express';
+import express from "express";
+import { query } from "express-validator";
 import usuarioRoutes from './Routes/UsuarioRoute.js'
 import cursosRoutes from './Routes/CursosRoute.js'
 import habilidadesRoutes from './Routes/HabilidadesRoute.js'
@@ -6,6 +7,7 @@ import trabalhosRoutes from './Routes/TrabalhosRoute.js'
 import Usuario from './Models/Usuario.js';
 
 const app = express();
+
 
 app.use(express.json());
 
@@ -40,21 +42,23 @@ const mockUsuario = [
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http: localhost:${PORT}`)})
 
-app.get(
-    "/", 
-    (request, response) => {
+app.get("/", (request, response) => {
     response.status(201).send({msg: "Olá, beleza? "});
     }
 );
 
-app.get("/api/usuario", (request, response) => {
-    console.log(request.query);
+app.get(
+    "/api/usuario"
+    , query("filter").isString().notEmpty(),
+     (request, response) => {
+    console.log(request[]);
     const { 
         query: {filter, value}, 
     } = request;
-    if (filter && value) return response.send(
-        mockUsuario.filter((user) => usuario[filter].includes(value))
-    );
+    if (filter && value) 
+        return response.send(
+            mockUsuario.filter((user) => usuario[filter].includes(value))
+        );
     return response.send(mockUsuario);
     });
 
