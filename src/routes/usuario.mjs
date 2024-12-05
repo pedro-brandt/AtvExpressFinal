@@ -16,10 +16,10 @@ query("filter")
 (request, response) => {
     const result = validationResult(request)
     console.log(result);
-const { 
-    query: {filter, value}, 
+const {
+    query: {filter, value},
 } = request;
-if (filter && value) 
+if (filter && value)
     return response.send(
         mockUsuario.filter((user) => usuario[filter].includes(value))
     );
@@ -31,8 +31,8 @@ router.get(
     "/api/usuario/:id", resolveIndexByUsuarioId, (request, response) => {
     const { findUsuarioIndex } = request;
     const findUsuario = mockUsuario[findUsuarioIndex]
-   if (!findUsuario) return response.sendDtatus(404);
-   return response.send(findUsuario);
+if (!findUsuario) return response.sendDtatus(404);
+return response.send(findUsuario);
 }
 )
 
@@ -66,7 +66,7 @@ router.patch("/api/usuario:id", resolveIndexByUsuarioId, (request, response) => 
     } = request;
     mockUsuario[findUsuarioIndex] = { ...mockUsuario[findUsuarioIndex], ...body};
     return response.sendStatus(200);
-})  
+}) 
 
 router.delete("/api/usuario:id", resolveIndexByUsuarioId, (request, response) => {
     const {findUsuarioIndex} = request;

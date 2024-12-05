@@ -11,5 +11,8 @@
   },
   "scripts": {
     "start": "node index.mjs"
+  },
+  "devDependencies": {
+    "nodemon": ""
   }
 }

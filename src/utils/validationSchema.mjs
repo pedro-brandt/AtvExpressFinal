@@ -15,7 +15,7 @@ export const createUserValidationSchema = {
         },
         isString: {
             errorMessage: "nome tem de ser String",
-        },    
+        },
     },
     displayNme: {
         notEmpty: true,
